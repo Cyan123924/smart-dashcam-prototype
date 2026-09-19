@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071016">
+  <title>Smart Dashcam & Road Evidence</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">SD</div>
+        <div>
+          <div class="eyebrow">FACTORY SAFETY PROTOTYPE</div>
+          <h1>SMART DASHCAM</h1>
+        </div>
+      </div>
+      <div class="status-pill"><span class="status-dot"></span><span id="systemState">SYSTEM READY</span></div>
+    </header>
+
+    <main>
+      <section id="dashboard" class="screen active">
+        <div class="hero-grid">
+          <div class="camera-card">
+            <div class="camera-head">
+              <div>
+                <span class="section-kicker">ROAD CAMERA</span>
+                <h2>Rolling View</h2>
+              </div>
+              <div class="rec-indicator" id="recIndicator"><span></span><b id="recText">STANDBY</b></div>
+            </div>
+
+            <div class="video-wrap" id="videoWrap">
+              <video id="camera" autoplay muted playsinline></video>
+              <div class="camera-placeholder" id="cameraPlaceholder">
+                <div class="camera-icon">◉</div>
+                <h3>Camera permission required</h3>
+                <p>Use the phone's rear camera to simulate the factory road-facing camera.</p>
+                <button class="primary-btn" id="enableCamera">ENABLE REAR CAMERA</button>
+              </div>
+              <div class="camera-overlay top-left">ROAD CAM 01</div>
+              <div class="camera-overlay top-right" id="timestamp">--:--:--</div>
+              <div class="camera-overlay bottom-left">LOCAL • NO CLOUD UPLOAD</div>
+            </div>
+
+            <div class="camera-controls">
+              <button class="control-btn primary" id="startBtn"><span>●</span> START RECORDING</button>
+              <button class="control-btn" id="saveBtn"><span>▣</span> SAVE RECORDING</button>
+            </div>
+          </div>
+
+          <aside class="side-panel">
+            <div class="status-card road">
+              <div class="card-title"><span class="icon">◌</span> ROAD STATUS</div>
+              <div class="road-status">CLEAR</div>
+              <div class="mini-stats">
+                <div><span>CONDITION</span><b>Clear</b></div>
+                <div><span>VISIBILITY</span><b>Good</b></div>
+                <div><span>TRAFFIC</span><b>Normal</b></div>
+              </div>
+            </div>
+
+            <div class="status-card incident" id="impactCard">
+              <div class="card-title"><span class="icon warning">⚠</span> IMPACT SENSOR</div>
+              <div class="impact-state" id="impactState">MONITORING</div>
+              <p id="impactHint">Demo sensor is ready. Use the button below to simulate an event.</p>
+              <button class="impact-btn" id="impactBtn">⚠ SIMULATE IMPACT</button>
+            </div>
+
+            <div class="privacy-card">
+              <div>
+                <span class="section-kicker">PRIVACY MODE</span>
+                <h3>Owner controlled</h3>
+              </div>
+              <div class="privacy-list">
+                <span>✓ Road-facing camera</span>
+                <span>✓ Cabin audio off</span>
+                <span>✓ Local protected storage</span>
+                <span>✓ Sharing requires approval</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="quick-grid">
+          <button class="nav-card" data-screen="protected">
+            <span class="nav-icon lock">⌾</span>
+            <div><b>Protected Clips</b><small>Incident evidence</small></div>
+            <span class="arrow">›</span>
+          </button>
+          <button class="nav-card" data-screen="manual">
+            <span class="nav-icon folder">▣</span>
+            <div><b>Manual Recordings</b><small>Saved by owner</small></div>
+            <span class="arrow">›</span>
+          </button>
+          <button class="nav-card" data-screen="privacy">
+            <span class="nav-icon shield">◇</span>
+            <div><b>Privacy Controls</b><small>Local & owner controlled</small></div>
+            <span class="arrow">›</span>
+          </button>
+        </div>
+      </section>
+
+      <section id="protected" class="screen">
+        <div class="page-head">
+          <button class="back-btn" data-screen="dashboard">←</button>
+          <div><span class="section-kicker">EVIDENCE REVIEW</span><h2>Protected Clips</h2></div>
+          <span class="count-badge" id="protectedCount">0</span>
+        </div>
+        <div class="notice protected-notice">
+          <div class="notice-icon">🔒</div>
+          <div><b>Your incident clip is protected and ready for review.</b><p>The preview includes 30 seconds before and after the recorded event.</p></div>
+        </div>
+        <div id="protectedList" class="clip-list empty-state">
+          <div class="empty-icon">⌁</div><h3>No protected incident yet</h3><p>Use “Simulate Impact” on the main screen to create the presentation demo.</p>
+        </div>
+      </section>
+
+      <section id="manual" class="screen">
+        <div class="page-head">
+          <button class="back-btn" data-screen="dashboard">←</button>
+          <div><span class="section-kicker">LOCAL STORAGE</span><h2>Manual Recordings</h2></div>
+          <span class="count-badge" id="manualCount">0</span>
+        </div>
+        <div id="manualList" class="clip-list empty-state">
+          <div class="empty-icon">▣</div><h3>No manual recordings</h3><p>Press “Save Recording” while recording to save a local clip.</p>
+        </div>
+      </section>
+
+      <section id="privacy" class="screen">
+        <div class="page-head">
+          <button class="back-btn" data-screen="dashboard">←</button>
+          <div><span class="section-kicker">SYSTEM SETTINGS</span><h2>Privacy Controls</h2></div>
+        </div>
+        <div class="settings-grid">
+          <div class="setting"><div><b>Road-facing camera</b><small>Camera points toward the road by default.</small></div><span class="toggle on">ON</span></div>
+          <div class="setting"><div><b>Cabin recording</b><small>No interior camera is used in this prototype.</small></div><span class="toggle">OFF</span></div>
+          <div class="setting"><div><b>Audio recording</b><small>Audio remains disabled by default.</small></div><span class="toggle">OFF</span></div>
+          <div class="setting"><div><b>Cloud upload</b><small>Clips remain local until the owner chooses to share.</small></div><span class="toggle">OFF</span></div>
+          <div class="setting"><div><b>Protected storage</b><small>Important event clips are separated from rolling footage.</small></div><span class="toggle on">ACTIVE</span></div>
+        </div>
+        <div class="architecture">
+          <span>FACTORY CAMERA</span><i>↓</i><span>IMPACT / VEHICLE SENSORS</span><i>↓</i><span>SMART DASHCAM SYSTEM</span><i>↓</i><span>ROLLING BUFFER + PROTECTED STORAGE</span><i>↓</i><span>INFOTAINMENT SCREEN</span>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="bottom active" data-screen="dashboard"><span>⌂</span>Dashboard</button>
+      <button class="bottom" data-screen="protected"><span>⌾</span>Protected</button>
+      <button class="bottom" data-screen="manual"><span>▣</span>Manual</button>
+      <button class="bottom" data-screen="privacy"><span>◇</span>Privacy</button>
+    </nav>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <div class="impact-flash" id="impactFlash"><div>⚠</div><b>IMPACT DETECTED</b><small>Protecting incident buffer…</small></div>
+  <script src="app.js"></script>
+</body>
+</html>
